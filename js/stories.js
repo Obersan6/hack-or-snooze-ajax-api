@@ -76,9 +76,9 @@ function submitStory(evt){
   $(".story-adding-container").show();
 
   // Get data from form
-  let $titleInputData = $("#story-title-input").val(); 
-  let $authorInputData = $("#story-author-input").val();
-  let $storyURLData = $("#story-url-value").val();
+  let title = $("#story-title-input").val(); 
+  let author = $("#story-author-input").val();
+  let url = $("#story-url-value").val();
 
   // Create a new Story instance
   // let newStory = new Story({
@@ -89,7 +89,7 @@ function submitStory(evt){
   //   createdAt: new Date() // Assuming createdAt should be the current date
   // });
 
-  let $storyInputData = `${$titleInputData} ${$authorInputData} ${$storyURLData}`;
+  let $storyInputData = `${title} ${author} ${url}`;
 
   $(".story-adding-container").hide(); 
 
