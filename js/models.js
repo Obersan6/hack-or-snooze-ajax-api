@@ -2,6 +2,7 @@
 
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
 
+
 /******************************************************************************
  * Story: a single story in the system
  */
@@ -74,32 +75,22 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  ///////////////////////////// THE FUNCTION THAT CAME ALREADY WITH
-  async addStory(user, newStory) {
-    try {
-      // Make HTTP POST request to add the new story
-      const response = await axios.post(`${BASE_URL}/stories`, {
-        token: user.loginToken,
-        story: newStory
-      });
+  async addStory(user, {title, author, url}) {
+    const token = user.loginToken;
+    const response = await axios({
+      method: "POST",
+      url: `${BASE_URL}/stories`,
+      data: { token, story: { title, author, url } },
+    });
 
-      // Extract the new story data from the response
-      const { story } = response.data;
+     const story = new Story(response.data.story);
+     this.stories.unshift(story);
+    //  user.ownStories.unshift(story); // I believe this is for later for favorites
 
-      // Create a new instance of the Story class with the new story data
-      const newStory = new Story(story);
-
-      // Add the new story to the new story list
-      this.stories.push(newStory);
-
-      // Return the new Story instance
-      return newStory;
-
-    } catch (error) {
-      console.error("Error adding story:", error);
-    }
+    return story;
   }
 }
+  
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
@@ -194,7 +185,7 @@ class User {
     try {
       const response = await axios({
         url: `${BASE_URL}/users/${username}`,
-        method: "GET",
+        method: "GET", // BUT ON THE API --> PATCH request
         params: { token },
       });
 

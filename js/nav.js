@@ -35,24 +35,15 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-/*  SUBPART 2B: Building The UI for New Story Form/Add New Story
-Now, we’ll add the UI for the story-adding feature:
-- Write a function in ***nav.js*** that is called when users click that navbar link. Look at the other function names in that file that do similar things and pick something descriptive and similar.
-- Write a function in ***stories.js*** that is called when users submit the form. Pick a good name for it. This function should get the data from the form, call the ***.addStory*** method you wrote, and then put that new story on the page. */
-
-/* - Write a function in ***nav.js*** 
-- that is called when users click that navbar link. 
-- Look at the other function names in that file that do similar things and pick something descriptive and similar. */
-
-$storySubmit.on("click", function() {
+// Handling form clicks to retrieve and make the story submitting form visible
+ $storySubmit.on("click", function(evt) {
+  evt.preventDefault(); // Prevent default form submission behavior
   hidePageComponents();
-
   $(".story-adding-container").show();
+ });
 
-  submitStory();
 
-  $(".story-adding-container").hide(); 
-});
+
 
 
 

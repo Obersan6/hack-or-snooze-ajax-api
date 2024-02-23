@@ -22,10 +22,10 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
-  const hostName = story.getHostName();
+  const hostName = story.getHostName(); //BELOW MAY BE AN ERROR, IT SHOULD BE target="_blank"
   return $(`
       <li id="${story.storyId}">
-        <a href="${story.url}" target="a_blank" class="story-link">
+        <a href="${story.url}" target="a_blank" class="story-link"> 
           ${story.title}
         </a>
         <small class="story-hostname">(${hostName})</small>
@@ -51,54 +51,31 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-/* Write a function in ***stories.js*** that is called when users submit the form. Pick a good name for it. This function should get the data from the form, call the ***.addStory*** method you wrote, and then put that new story on the page. */
-
-// display form when clicking on 'submit'
-// $storySubmit.on("click", function() {
-//   hidePageComponents();
-
-//   $(".story-adding-container").show();
-
-//   submitStory();
-
-// }); 
-
-
-// Event listener on submit form when form is submitted
+// Function that is called when users submit the form. 
+//Handle story form submission when the submit button is clicked
 $storyAddingForm.on("submit", submitStory);
-// $submitBtn.on("input", submitStory); // it doesn't work with this one
 
-// submit the form
-function submitStory(evt){
+// Get data from submit story form, add story to API, put the story on the page
+async function submitStory(evt){
   evt.preventDefault();
 
-  // Make the story adding form visible
-  $(".story-adding-container").show();
-
   // Get data from form
-  let title = $("#story-title-input").val(); 
-  let author = $("#story-author-input").val();
-  let url = $("#story-url-value").val();
+  const username = currentUser.username;
+  const title = $("#story-title-input").val(); 
+  const author= $("#story-author-input").val();
+  const url = $("#story-url-input").val();
 
-  // Create a new Story instance
-  // let newStory = new Story({
-  //   $titleInputData: title,
-  //   $authorInputData: author,
-  //   SstoryURLData: url,
-  //   username: currentUser.username, // Assuming currentUser is defined globally
-  //   createdAt: new Date() // Assuming createdAt should be the current date
-  // });
+  const storyData = { username, title, author, url };
 
-  let $storyInputData = `${title} ${author} ${url}`;
-
-  $(".story-adding-container").hide(); 
-
-  // Show all stories list
-  $(".stories-list").show();
-
-  //addStory();
-
-  $allStoriesList.append($storyInputData);
-  // $allStoriesList.text($storyInputData);
+  $(".story-adding-container").hide(); // Hide form to submit story
+  try {
+    await storyList.addStory(currentUser, storyData); // Add story   
+    putStoriesOnPage(); // Append story to the page
+  } catch (error) {
+    console.error("Error submitting story: ", error);
+  }
 }
+
+
+
 
