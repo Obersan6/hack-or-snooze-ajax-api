@@ -26,8 +26,7 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return new URL(this.url).host;
   }
 }
 
@@ -85,7 +84,7 @@ class StoryList {
 
      const story = new Story(response.data.story);
      this.stories.unshift(story);
-    //  user.ownStories.unshift(story); // I believe this is for later for favorites
+     user.ownStories.unshift(story); 
 
     return story;
   }
@@ -122,7 +121,7 @@ class User {
     this.loginToken = token;
   }
 
-  /** Register new user in API, make User instance & return it.
+    /** Register new user in API, make User instance & return it.
    *
    * - username: a new username
    * - password: a new password
@@ -206,4 +205,72 @@ class User {
       return null;
     }
   }
+
+  // Declare addFavorite 
+  async addFavorite(story) {
+    try {
+      this.favorites.push(story); // add story to favorites
+      await this.favoriteAddOrRemove("add", story);
+    } catch (error) {
+      console.error("Error adding favorite:", error);
+    }
+  }
+
+  // Declare removeFavorite functions
+  async removeFavorite(story) {
+    try {
+      this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
+      await this.favoriteAddOrRemove("remove", story);
+      } catch (error) {
+      console.error("Error removing favorites", error);
+    }
+  }
+
+  // Send info to API about add/remove favorite 
+  async favoriteAddOrRemove(action, story) { //"action" = selected to add/selected to remove
+    // Assign actions to "method"
+    let method;
+    if (action === "add") {
+      method = "POST";
+    } else if (action === "remove") {
+      method = "DELETE";
+    }
+  
+  try {
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: method,
+      data: this.loginToken
+    });
+
+    if (action === "add") {
+      this.addFavorite(story);
+      console.log("Story added to favorites");
+    } else if (action === "remove") {
+      this.removeFavorite(story);
+      console.log("Story removed from favorites");
+    }
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error);
+  }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+/** SUBPART 3A: DATA/API CHANGES
+
+-- PUt favorite stories on "favorites"
+
+- Allow logged in users to see a separate list of favorited stories.
+
+- The methods for adding and removing favorite status on a story should be defined in the "User class".
+ */

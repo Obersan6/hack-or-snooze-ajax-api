@@ -16,6 +16,22 @@
   margin: 20px 30px;
 }
 
+/* star checkbox */
+.star-checkbox input[type="checkbox"] {
+  display:none;
+}
+
+.star-checkbox label::before {
+  content: "\2605"; /* Unicode for a star*/
+  display: inline-block;
+  font-size: 25px;
+  color: #ddd; /* Color for unchecked star */
+}
+
+.star-checkbox input[type="checkbox"]:checked + label::before {
+  color: grey;
+}
+
 
 /* Individual stories */
 

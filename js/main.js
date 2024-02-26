@@ -6,6 +6,13 @@ const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
+// All favorite stories (List of stories selected as favorite by user)
+const $allFavoriteStories = $("#all-favorite-list");
+// Own stories
+const $ownStories = $("my-stories");
+
+const storiesContainer = $(".stories-container");
+
 // submit link on navbar
 const $storySubmit = $("#nav-submit");
 
@@ -19,6 +26,8 @@ const $submitBtn = $("#submit-btn");
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
+// favorites in navbar
+const $navFavorites = $("#nav-favorites");
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After

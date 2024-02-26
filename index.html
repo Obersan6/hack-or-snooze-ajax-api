@@ -41,13 +41,22 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-submit">Submit</a>
   </div>
-
+  |
+  <div class="navbar-brand">
+    <a class="nav-link" href="#" id="nav-favorites">favorites</a>
+  </div>
+  |
+  <div class="navbar-brand">
+    <a class="nav-link" href="#" id="nav-my-stories">my&nbsp;stories</a> 
+  </div> 
+  |
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
     <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
   </div>
 </nav>
+
 
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
@@ -57,6 +66,13 @@
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
+
+  <!-- List of stories selected as favorite by user -->
+  <ol id="all-favorite-list" class="favorite-list"></ol>
+
+  <!-- List of own stories by the user-->
+  <ol id="my-stories" class="own-stories-list"></ol>
+
 
   <!-- - STORY ADDING FEATURE: Add a form in the HTML for the story. This should initially be hidden. -->
   <form action="#" id="story-adding-form" method="post">
@@ -82,7 +98,6 @@
       <!-- <button type="submit"  id="submit-btn">Submit</button> -->
       <input type="submit" id="submit-btn" value="Submit">
     </div>
-
   </form>
 
 </section>
