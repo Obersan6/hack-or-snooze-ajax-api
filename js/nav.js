@@ -36,7 +36,7 @@ function updateNavOnLogin() {
 }
 
 // Handling form clicks to retrieve and make the story submitting form visible
- $storySubmit.on("click", function(evt) {
+ $navStorySubmit.on("click", function(evt) {
   evt.preventDefault(); // Prevent default form submission behavior
   hidePageComponents();
   $(".story-adding-container").show();

@@ -227,7 +227,14 @@ class User {
   async addFavorite(story) {
     try {
       this.favorites.push(story); // add story to favorites
-      await this.favoriteAddOrRemove("add", story);
+      // await this.favoriteAddOrRemove("add", story);
+      const token = this.loginToken;
+      await axios({
+                url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+                method: "POST",
+                data: {token}
+              });
+      console.log("addfavorite");
     } catch (error) {
       console.error("Error adding favorite:", error);
     }
@@ -244,41 +251,37 @@ class User {
   }
 
   // Send info to API about add/remove favorite 
-  async favoriteAddOrRemove(action, story) { //"action" = selected to add/selected to remove
-    // Assign actions to "method"
-    let method;
-    if (action === "add") {
-      method = "POST";
-    } else if (action === "remove") {
-      method = "DELETE";
-    }
+//   async favoriteAddOrRemove(action, story) { //"action" = selected to add/selected to remove
+//     // Assign actions to "method"
+//     let method;
+//     if (action === "add") {
+//       method = "POST";
+//     } else if (action === "remove") {
+//       method = "DELETE";
+//     }
 
-    const token = this.loginToken;
+//     const token = this.loginToken;
 
-    try {
-      await axios({
-        url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
-        method: method,
-        data: {token}
-      });
+//     try {
+//       await axios({
+//         url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+//         method: method,
+//         data: {token}
+//       });
     
-      if (action === "add") {
-        this.addFavorite(story);
-        console.log("Story added to favorites");
-      } else if (action === "remove") {
-        this.removeFavorite(story);
-        console.log("Story removed from favorites");
-      }
-    } catch (error) {
-      // Handle errors
-      console.error("Error:", error);
-    }
-  }
+//       if (action === "add") {
+//         this.addFavorite(story);
+//         console.log("Story added to favorites");
+//       } else if (action === "remove") {
+//         this.removeFavorite(story);
+//         console.log("Story removed from favorites");
+//       }
+//     } catch (error) {
+//       // Handle errors
+//       console.error("Error:", error);
+//     }
+//   }
+// }
+
+
 }
-
-
-
-
-
-
-

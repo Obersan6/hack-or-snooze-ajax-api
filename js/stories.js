@@ -79,19 +79,37 @@ async function submitStory(evt){
   }
 }
 
-// Call event when the star input changes its state and call favoriteAddOrRemove
-$allStoriesList.on('change', 'input[type="checkbox"]', favoriteAddOrRemove);
+// Call event when the star input changes its state and call findSelectedStory
+$allStoriesList.on('change', 'input[type="checkbox"]', findSelectedStory);
 
+/////////////////////////////////////////VERSION 2
 // Find the selected story and its id to then add/remove it, then check if selected or unselected
-async function findSelectedStory(evt) {
+function findSelectedStory(evt) {
   // Access the element that was selected
   const $targetedStar = $(evt.target);
-  // Get the "li" closest to targetedStar
-  const $closestLi = $targetedStar.closest("li");
-  // Get the story attribute "id"
-  const $storyId = $closestLi.attr("id");
-  // Find the specific storyId for the specific story which "li" was targeted from the entire story list
-  const story = storyList.stories.find(s => s.storyId === storyId);
+
+  if ($targetedStar.prop("checked")) {
+    // Get the "li" closest to targetedStar
+    const $closestLi = $targetedStar.closest("li");
+    // Get the story attribute "id"
+    const $storyId = $closestLi.attr("id"); // ANADIR $ TO THE CONST NAME
+    // Find the specific storyId for the specific story which "li" was targeted from the entire story list
+    const story = storyList.stories.find(s => s.storyId === $storyId);
+    console.log("Checkbox is checked!");
+    currentUser.addFavorite(story);
+    localStorage.setItem(story.storyId, "checked");
+    generateStoryMarkup(story);
+    $allFavoriteStories.append(story);
+  
+  } else {
+    currentUser.removeFavorite(story); 
+    localStorage.removeItem(storyId);
+    generateStoryMarkup(story);
+    $allFavoriteStories.remove($story);  
+    console.log("Checkbox is unchecked"); // Check if checbox is/was unchecked
+  }
+  // Display all favorite stories
+  $allFavoriteStories.show();
 }
 
 // Restore the state of selected stories from localStorage when the page loads
@@ -110,51 +128,27 @@ $(document).ready(function() {
   restoreSelectedStoriesState();
 });
 
-// Allow logged in users to see a separate list of favorited stories.
-function putFavoriteStoriesOnPage() {
-  // Empty all stories list
-  $allStoriesList.hide();
-  // Empty favorites
-  //$allFavoriteStories.empty(); 
-
-  restoreSelectedStoriesState();
-
-  if ($targetedStar.prop("checked")) { //Check if checkbox was checked
-    console.log("Checkbox is checked");
-    currentUser.addFavorite(story)// CREATE THIS FUNCTION IN MODELS.JS
-    localStorage.setItem(storyId, "checked");
-    for (let story of currentUser.favorites) {
-      const $story = generateStoryMarkup(story);
-      // $allFavoriteStories.append($story);
-      $navFavorites.append($story);
-
-    }
-  } else {
-    console.log("Checkbox is unchecked"); // Check if checbox is/was unchecked
-    currentUser.removeFavorite(story); //CREATE THIS FUNCTION IN MODELS.JS
-    localStorage.removeItem(storyId);
-    // loop through all of favorite stories and generate HTML for them
-    for (let story of currentUser.favorites) {
-      const $story = generateStoryMarkup(story);
-      // $allFavoriteStories.remove($story);
-      $navFavorites.remove($story);
-    }
+// Function to display all favorite stories
+function displayFavoriteStories() {
+  $allFavoriteStories.empty(); // Clear existing content
+  
+  // Loop through all favorite stories of the current user
+  for (let story of currentUser.favorites) {
+    const $story = generateStoryMarkup(story); // Generate markup for the story
+    $allFavoriteStories.append($story); // Append the markup to the container
   }
-  // Display all favorite stories
-  //$allFavoriteStories.show();
-  $navFavorites.show();
+  
+  $allFavoriteStories.show(); // Show the container
 }
 
-$navFavorites.on("click", putFavoriteStoriesOnPage);
+// Event handler for clicking on the Favorites link
+$navFavorites.on("click", function() {
+  displayFavoriteStories(); // Call the function to display favorite stories
+});
 
 
 
 
 
 
-/** SUBPART 3A: DATA/API CHANGES
 
-- Allow logged in users to see a separate list of favorited stories.
-
-- The methods for adding and removing favorite status on a story should be defined in the "User class".
- */

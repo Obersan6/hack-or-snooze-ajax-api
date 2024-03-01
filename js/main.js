@@ -5,25 +5,24 @@
 const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
-const $allStoriesList = $("#all-stories-list");
+const $allStoriesList = $("#all-stories-list"); // All stories list
 // All favorite stories (List of stories selected as favorite by user)
-const $allFavoriteStories = $("#all-favorite-list");
+const $allFavoriteStories = $("#all-favorite-list"); //Selected stories as favorites
+const $allMyStories = $("#all-my-stories"); // All my own stories
 
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 // story adding form and submit button
-const $storyAddingForm = $("#story-adding-form");
-const $submitBtn = $("#submit-btn");
+const $storyAddingForm = $("#story-adding-form"); // form to add a story
+const $submitBtn = $("#submit-btn"); // Button of the add story form
 
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
-// submit link on navbar -- CAMBIAR const name with $navStorySubmit
-const $storySubmit = $("#nav-submit");
-// favorites in navbar
-const $navFavorites = $("#nav-favorites");
-// Own stories
-const $ownStories = $("my-stories");
+// Links on navbar: submit, favorites, my stories
+const $navStorySubmit = $("#nav-submit"); // Hyperlink "submit"
+const $navFavorites = $("#nav-favorites"); // Hyperlink "favorites"
+const $navOwnStories = $("nav-my-stories"); // hyperlink "my stories"
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
