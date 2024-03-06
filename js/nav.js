@@ -35,6 +35,16 @@ function updateNavOnLogin() {
   $(".story-adding-container").show();
  });
 
+ function navFavorites(evt) {
+  console.debug("navFavorites", evt);
+  hidePageComponents();
+  putFavoritesOnPage();
+}
+
+$body.on("click", "#nav-favorites", navFavorites);
+
+
+
 
 
 

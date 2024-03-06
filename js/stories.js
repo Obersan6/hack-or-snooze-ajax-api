@@ -41,6 +41,19 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
+/* Get list of favorites, generate their HTML, and puton page */
+function putFavoritesOnPage() {
+  console.debug("putFavoritesOnPage");
+
+  $allFavoriteStories.empty();
+
+  for (let story of currentUser.favorites) {
+    const $story = generateStoryMarkup(story);
+    $allFavoriteStories.append($story);
+  }
+  $allFavoriteStories.show();
+}
+
 /* Get data from the submit story form, add story to API, put the story on the page */
 async function submitStory(evt){
   evt.preventDefault();
