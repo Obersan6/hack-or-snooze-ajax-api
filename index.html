@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 
-<!-- Hack or Snooze
-
-     This is the only HTML page; the applications manipulates this DOM
-     during use.
-
-     Primary authors:
-     - Michael Hueter: initial creation, 2018
-     - Elie Schoppik: refactoring using OO, 2019
-     - Joel Burton: refactored and componentized, 2020
-     - You!
-  -->
-
 <html lang="en">
 
 <head>
@@ -37,7 +25,7 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
   </div>
-
+  |
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-submit">Submit</a>
   </div>
@@ -59,45 +47,42 @@
 
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
-  <!-- - STORY ADDING FEATURE: Add a form in the HTML for the story. This should initially be hidden. -->
-  <form action="#" id="story-adding-form" method="post">
-    
-    <div class="story-adding-container" style="display: none;">
-      <h4>Add a Story</h4>
-
-      <label for="story-author-input">Author's Name</label>
-      <input type="text" id="story-author-input">
-    </div>
-
-    <div class="story-adding-container" style="display: none;">
-      <label for="story-title-input">Story Title</label>
-      <input type="text" id="story-title-input">
-    </div>
-
-    <div class="story-adding-container" style="display: none;">
-      <label for="story-url-input">Story URL</label>
-      <input type="url" id="story-url-input">
-    </div>
-
-    <div class="story-adding-container" style="display: none;">
-      <!-- <button type="submit"  id="submit-btn">Submit</button> -->
-      <input type="submit" id="submit-btn" value="Submit">
-    </div>
-  </form>
-
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>
 
-  <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
 
-  <!-- List of stories selected as favorite by user -->
   <ol id="all-favorite-list" class="favorite-list"></ol>
 
-  <!-- List of own stories by the user CHANGE TO id="own-stories" !!!!!!!!!!!-->
   <ol id="all-my-stories" class="own-stories-list"></ol>
 
 </section>
+
+<!-- Form to add a new story -->
+<form action="#" id="story-adding-form" method="post">
+    
+  <div class="story-adding-container" style="display: none;">
+    <h4>Add a Story</h4>
+
+    <label for="story-author-input">Author's Name</label>
+    <input type="text" id="story-author-input">
+  </div>
+
+  <div class="story-adding-container" style="display: none;">
+    <label for="story-title-input">Story Title</label>
+    <input type="text" id="story-title-input">
+  </div>
+
+  <div class="story-adding-container" style="display: none;">
+    <label for="story-url-input">Story URL</label>
+    <input type="url" id="story-url-input">
+  </div>
+
+  <div class="story-adding-container" style="display: none;">
+    <!-- <button type="submit"  id="submit-btn">Submit</button> -->
+    <input type="submit" id="submit-btn" value="Submit">
+  </div>
+</form>
 
 <!-- Login and signup forms -->
 <section class="account-forms-container container">

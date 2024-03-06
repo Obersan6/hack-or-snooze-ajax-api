@@ -1,11 +1,6 @@
 "use strict";
 
-/******************************************************************************
- * Handling navbar clicks and updating navbar
- */
-
-/** Show main list of all stories when click site name */
-
+/* Handle navbar clicks and updating navbar: Show all stories list when clicking "Hack or Snooze" */
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
@@ -14,8 +9,7 @@ function navAllStories(evt) {
 
 $body.on("click", "#nav-all", navAllStories);
 
-/** Show login/signup on click on "login" */
-
+/* Show login/signup forms on click on "login" */
 function navLoginClick(evt) {
   console.debug("navLoginClick", evt);
   hidePageComponents();
@@ -25,8 +19,7 @@ function navLoginClick(evt) {
 
 $navLogin.on("click", navLoginClick);
 
-/** When a user first logins in, update the navbar to reflect that. */
-
+/* When user logins in, update the navbar to reflect that. */
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
@@ -35,9 +28,9 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-// Handling form clicks to retrieve and make the story submitting form visible
+// Handle form clicks to retrieve and make the story submitting form visible
  $navStorySubmit.on("click", function(evt) {
-  evt.preventDefault(); // Prevent default form submission behavior
+  evt.preventDefault(); 
   hidePageComponents();
   $(".story-adding-container").show();
  });
