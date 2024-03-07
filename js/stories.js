@@ -13,10 +13,13 @@ async function getAndShowStoriesOnStart() {
 /* Render the markup for an individual Story instance */
 function generateStoryMarkup(story) {
   const hostName = story.getHostName(); 
+  const isFavorite = currentUser.favorites.find(s => s.storyId === story.storyId);
+
+  const isChecked = isFavorite ? 'checked' : '';
   return $(`
       <li id="${story.storyId}">
         <div class="star-checkbox">
-          <input type="checkbox" id="star-${story.storyId}"/> 
+        <input type="checkbox" id="star-${story.storyId}" ${isChecked}/> 
           <label for="star-${story.storyId}"></label>
           <a href="${story.url}" target="a_blank" class="story-link">${story.title}</a>
         </div>
@@ -54,6 +57,19 @@ function putFavoritesOnPage() {
   $allFavoriteStories.show();
 }
 
+/* Get list of my stories, generate their HTML, and puton page */
+function putMyStoriesOnPage() {
+  console.debug("putMyStoriesOnPage");
+
+  $allMyStories.empty();
+
+  for (let story of currentUser.ownStories) {
+    const $story = generateStoryMarkup(story);
+    $allMyStories.append($story);
+  }
+  $allMyStories.show();
+}
+
 /* Get data from the submit story form, add story to API, put the story on the page */
 async function submitStory(evt){
   evt.preventDefault();
@@ -70,6 +86,7 @@ async function submitStory(evt){
   try {
     await storyList.addStory(currentUser, storyData);  
     putStoriesOnPage(); 
+    putMyStoriesOnPage();
   } catch (error) {
     console.error("Error submitting story: ", error);
   }
@@ -80,42 +97,49 @@ $storyAddingForm.on("submit", submitStory);
 /* Identify the selected favorite story, then add or remove it */
 function findSelectedStory(evt) {
   const $targetedStar = $(evt.target);
+  const $closestLi = $targetedStar.closest("li");
+  const $storyId = $closestLi.attr("id"); 
 
-  if ($targetedStar.prop("checked")) {
-    const $closestLi = $targetedStar.closest("li");
-    const $storyId = $closestLi.attr("id"); 
-    const story = storyList.stories.find(s => s.storyId === $storyId); // Find the specific favorite storyId 
-
+  if (localStorage.getItem($storyId)) {
+    // Remove from favorites
+    currentUser.removeFavorite(storyList.stories.find(s => s.storyId === $storyId));
+    localStorage.removeItem($storyId);
+    $closestLi.remove(); // Remove the favorite story from the list
+  } else if ($targetedStar.prop("checked")) {
+    // Add to favorites
+    const story = storyList.stories.find(s => s.storyId === $storyId); 
     currentUser.addFavorite(story);
-    localStorage.setItem(story.storyId, "checked");
+    localStorage.setItem($storyId, "checked");
     generateStoryMarkup(story);
     $allFavoriteStories.append(story);
-  } else {
-    currentUser.removeFavorite(story); 
-    localStorage.removeItem(storyId);
-    generateStoryMarkup(story);
-    $allFavoriteStories.remove($story);  
   }
+
   $allFavoriteStories.show();
 }
 
 $allStoriesList.on('change', 'input[type="checkbox"]', findSelectedStory);
 
-/* Restore the state of selected stories from localStorage when the page loads */
-function restoreSelectedStoriesState() {
-  for (let i = 0; i < localStorage.length; i++) {
-    const storyId = localStorage.key(i);
-    const $checkbox = $(`#star-${storyId}`);
-    if ($checkbox) {
-      $checkbox.prop('checked', true);
-    }
-  }
-}
 
-/* Call restoreSelectedStoriesState when the page loads */
-$(document).ready(function() {
-  restoreSelectedStoriesState();
-});
+
+
+
+
+
+/* Restore the state of selected stories from localStorage when the page loads */
+// function restoreSelectedStoriesState() {
+//   for (let i = 0; i < localStorage.length; i++) {
+//     const storyId = localStorage.key(i);
+//     const $checkbox = $(`#star-${storyId}`);
+//     if ($checkbox) {
+//       $checkbox.prop('checked', true);
+//     }
+//   }
+// }
+
+// /* Call restoreSelectedStoriesState when the page loads */
+// $(document).ready(function() {
+//   restoreSelectedStoriesState();
+// });
 
 /* Display all favorite stories */
 function displayFavoriteStories() {
@@ -124,6 +148,7 @@ function displayFavoriteStories() {
   for (let story of currentUser.favorites) {
     const $story = generateStoryMarkup(story); 
     $allFavoriteStories.append($story); 
+    // findSelectedStory();
   }
   $allFavoriteStories.show(); 
 }

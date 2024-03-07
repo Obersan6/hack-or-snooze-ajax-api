@@ -183,8 +183,16 @@ class User {
   async removeFavorite(story) {
     try {
       this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
-      await this.favoriteAddOrRemove("remove", story);
-      } catch (error) {
+      const token = this.loginToken;
+
+      await axios({
+        url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+        method: "DELETE",
+        data: {token}
+      });
+      console.log("removeFavorite");
+   
+    } catch (error) {
       console.error("Error removing favorites", error);
     }
   }
