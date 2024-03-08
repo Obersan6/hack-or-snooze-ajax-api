@@ -15,9 +15,9 @@ async function login(evt) {
   currentUser = await User.login(username, password); // Retrieves user login info from API 
   console.log(currentUser);
 
-    // Show submit, favorites, my stories from navbar when loggedout
-   $("#nav-user-links").removeClass("hidden"); 
-   $("#nav-user-links").addClass("authenticated");  
+  // Show submit, favorites, my stories from navbar when loggedout
+  $("#nav-user-links").removeClass("hidden"); 
+  $("#nav-user-links").addClass("authenticated");  
    
   $loginForm.trigger("reset");
 
@@ -56,7 +56,6 @@ function logout(evt) {
 
   localStorage.clear();
   location.reload();
-  
 }
 
 $navLogOut.on("click", logout);

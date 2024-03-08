@@ -34,12 +34,16 @@ function updateNavOnLogin() {
 $navStorySubmit.on("click", function(evt) {
   evt.preventDefault(); 
   hidePageComponents();
-  $(".story-adding-container").show();
+  $allFavoriteStories.hide(); 
+  $allMyStories.hide();
+  $(".story-adding-container").show();  
  });
 
 function navFavorites(evt) {
   console.debug("navFavorites", evt);
   hidePageComponents();
+  $allMyStories.hide();
+  $(".story-adding-container").hide(); // So we don't see the story adding form when switching to favorites
   putFavoritesOnPage();
 }
 
@@ -48,6 +52,8 @@ $body.on("click", "#nav-favorites", navFavorites);
 function navMyStories(evt) {
   console.debug("navMyStories", evt);
   hidePageComponents();
+  $allFavoriteStories.hide();
+  $(".story-adding-container").hide(); // So we don't see the story adding form when switching to my stories
   putMyStoriesOnPage();
 }
 
