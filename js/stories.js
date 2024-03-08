@@ -31,6 +31,25 @@ function generateStoryMarkup(story) {
     `);
 }
 
+/* Render the markup for an individual favorite story inside favorites page*/
+// Function to generate markup for the favorites page
+function generateFavoriteStoryMarkup(story) {
+  const hostName = story.getHostName();
+  return $(`
+      <li id="${story.storyId}">
+        <div class="star-checkbox">
+          <input type="checkbox" id="star-${story.storyId}" checked /> 
+          <label for="star-${story.storyId}"></label>
+          <a href="${story.url}" target="_blank" class="story-link">${story.title}</a>
+        </div>
+        <small class="story-hostname">(${hostName})</small>
+        <small class="story-author">by ${story.author}</small>
+        <small class="story-user">posted by ${story.username}</small>
+      </li>
+    `);
+}
+
+
 /* Get list of stories, generate their HTML, and puton page */
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
@@ -121,10 +140,6 @@ $allStoriesList.on('change', 'input[type="checkbox"]', findSelectedStory);
 
 
 
-
-
-
-
 /* Restore the state of selected stories from localStorage when the page loads */
 // function restoreSelectedStoriesState() {
 //   for (let i = 0; i < localStorage.length; i++) {
@@ -148,7 +163,7 @@ function displayFavoriteStories() {
   for (let story of currentUser.favorites) {
     const $story = generateStoryMarkup(story); 
     $allFavoriteStories.append($story); 
-    // findSelectedStory();
+    findSelectedStory();
   }
   $allFavoriteStories.show(); 
 }
@@ -157,6 +172,7 @@ function displayFavoriteStories() {
 $navFavorites.on("click", function() {
   displayFavoriteStories(); 
 });
+
 
 
 

@@ -1,5 +1,6 @@
 "use strict";
 
+
 // Currently-logged-in user
 let currentUser;
 
@@ -12,7 +13,12 @@ async function login(evt) {
   const password = $("#login-password").val();
 
   currentUser = await User.login(username, password); // Retrieves user login info from API 
+  console.log(currentUser);
 
+    // Show submit, favorites, my stories from navbar when loggedout
+   $("#nav-user-links").removeClass("hidden"); 
+   $("#nav-user-links").addClass("authenticated");  
+   
   $loginForm.trigger("reset");
 
   saveUserCredentialsInLocalStorage();
@@ -43,8 +49,14 @@ $signupForm.on("submit", signup);
 /* Handle click of logout button to remove user's credentials from localStorage */
 function logout(evt) {
   console.debug("logout", evt);
+
+  // Hide submit, favorites, my stories from navbar when loggedout
+  $("#nav-user-links").addClass("hidden"); 
+  $("#nav-user-links").removeClass("authenticated");
+
   localStorage.clear();
   location.reload();
+  
 }
 
 $navLogOut.on("click", logout);
@@ -75,3 +87,5 @@ function updateUIOnUserLogin() {
   $allStoriesList.show();
   updateNavOnLogin();
 }
+
+
