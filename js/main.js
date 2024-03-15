@@ -31,7 +31,7 @@ function hidePageComponents() {
   components.forEach(c => c.hide());
 }
 
-/* Start thee app. */
+/* Start the app. */
 async function start() {
   console.debug("start");
 

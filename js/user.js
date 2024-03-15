@@ -1,6 +1,5 @@
 "use strict";
 
-
 // Currently-logged-in user
 let currentUser;
 

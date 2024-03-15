@@ -15,7 +15,40 @@
   font-size: 150%;
   margin: 20px 30px;
 }
+/* checkboxes */
+.story-container {
+  display: flex;
+  align-items: center;
+}
 
+
+/****************************/
+.trashbin-checkbox {
+  position: relative;
+}
+
+/* .trashbin-checkbox.hide {
+  display: none;
+} */
+
+.trashbin-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Adjust positioning as needed */
+}
+
+input[type="checkbox"] {
+  opacity: 0; /* Hide the checkbox */
+  width: 24px; /* Adjust width to match trashbin icon */
+  height: 24px; /* Adjust height to match trashbin icon */
+}
+
+/******************************/
+
+.star-checkbox, .trashbin-checkbox {
+  margin-right: 10px; /* Adjust margin as needed */
+}
 /* star checkbox */
 .star-checkbox input[type="checkbox"] {
   display:none;
@@ -31,6 +64,12 @@
 .star-checkbox input[type="checkbox"]:checked + label::before {
   color: grey;
 }
+
+/* trasbin checkbox*/
+img{
+  height: 25px;
+}
+
 
 /* Individual stories */
 

@@ -68,7 +68,3 @@ $body.on("click", "#nav-my-stories", navMyStories);
 
 
 
-
-
-
-

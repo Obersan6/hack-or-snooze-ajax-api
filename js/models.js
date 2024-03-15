@@ -20,7 +20,6 @@ class Story {
   }
 }
 
-
 /* List of Story instances */
 class StoryList {
   constructor(stories) {
@@ -70,7 +69,6 @@ class StoryList {
   }
 }
   
-
 /* User: represents the current user */
 class User {
   constructor({
@@ -197,3 +195,6 @@ class User {
     }
   }
 }
+
+
+
