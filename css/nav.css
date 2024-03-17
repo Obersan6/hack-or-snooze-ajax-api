@@ -10,6 +10,17 @@ nav {
 
 .navbar-brand {
   font-weight: bold;
+  display: inline-block;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.navbar-brand #nav-all {
+  padding-right: 10px;
+}
+
+#nav-user-links .nav-link {
+  font-weight: lighter;
 }
 
 .nav-link {
@@ -21,6 +32,11 @@ nav {
   margin-left: auto;
   text-align: right;
 }
+
+#nav-logout.small {
+  font-size: 0.85rem;
+}
+
 
 
 

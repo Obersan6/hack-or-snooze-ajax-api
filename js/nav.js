@@ -5,7 +5,7 @@ function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
   putStoriesOnPage();
-  $allFavoriteStories.hide(); // When I go back to the home page after clicking favorites, the favorited doesn't show appended on the homepage (makeing sort of a dupplicate)
+  $allFavoriteStories.hide();
   $allMyStories.hide();
 }
 
@@ -24,7 +24,6 @@ $navLogin.on("click", navLoginClick);
 /* When user logins in, update the navbar to reflect that. */
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
-  // $(".main-nav-links").show();
   $navLogin.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
@@ -43,7 +42,7 @@ function navFavorites(evt) {
   console.debug("navFavorites", evt);
   hidePageComponents();
   $allMyStories.hide();
-  $(".story-adding-container").hide(); // So we don't see the story adding form when switching to favorites
+  $(".story-adding-container").hide(); // Hide story adding form when switching to favorites
   putFavoritesOnPage();
 }
 
@@ -53,7 +52,7 @@ function navMyStories(evt) {
   console.debug("navMyStories", evt);
   hidePageComponents();
   $allFavoriteStories.hide();
-  $(".story-adding-container").hide(); // So we don't see the story adding form when switching to my stories
+  $(".story-adding-container").hide(); // Hide story adding form when switching to my stories
   putMyStoriesOnPage();
 }
 

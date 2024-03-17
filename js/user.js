@@ -14,7 +14,7 @@ async function login(evt) {
   currentUser = await User.login(username, password); // Retrieves user login info from API 
   console.log(currentUser);
 
-  // Show submit, favorites, my stories from navbar when loggedout
+  // Shows submit, favorites, my stories from navbar when logged-in
   $("#nav-user-links").removeClass("hidden"); 
   $("#nav-user-links").addClass("authenticated");  
    

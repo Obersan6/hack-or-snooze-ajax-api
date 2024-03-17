@@ -1,4 +1,4 @@
-/* Lists of stories */
+/************** Lists of stories *************/
 
 .stories-list {
   margin: 20px 5px;
@@ -15,40 +15,53 @@
   font-size: 150%;
   margin: 20px 30px;
 }
-/* checkboxes */
+
+
+/*******************88 checkboxes ***************/
+
 .story-container {
   display: flex;
   align-items: center;
 }
 
+/* star and trashbin checkbox */
+.star-checkbox, .trashbin-checkbox {
+  margin-right: 10px; 
+}
 
-/****************************/
+/* trashbin checkbox */
 .trashbin-checkbox {
   position: relative;
 }
-
-/* .trashbin-checkbox.hide {
-  display: none;
-} */
 
 .trashbin-img {
   position: absolute;
   top: 0;
   left: 0;
-  /* Adjust positioning as needed */
 }
 
 input[type="checkbox"] {
-  opacity: 0; /* Hide the checkbox */
-  width: 24px; /* Adjust width to match trashbin icon */
-  height: 24px; /* Adjust height to match trashbin icon */
+  opacity: 0; 
+  width: 15px; 
+  height: 15px; 
 }
 
-/******************************/
-
-.star-checkbox, .trashbin-checkbox {
-  margin-right: 10px; /* Adjust margin as needed */
+/* trasbin img*/
+img{
+  height: 22px;
 }
+
+.trashbin-input label::before {
+  display: inline-block;
+  font-size: 22px;
+  color: gray; 
+ }
+
+.trashbin-checkbox:hover {
+  filter: brightness(70%);
+  background-color: red;
+} 
+
 /* star checkbox */
 .star-checkbox input[type="checkbox"] {
   display:none;
@@ -57,7 +70,7 @@ input[type="checkbox"] {
 .star-checkbox label::before {
   content: "\2605"; /* Unicode for a star*/
   display: inline-block;
-  font-size: 25px;
+  font-size: 20px;
   color: #ddd; /* Color for unchecked star */
 }
 
@@ -65,13 +78,8 @@ input[type="checkbox"] {
   color: grey;
 }
 
-/* trasbin checkbox*/
-img{
-  height: 25px;
-}
 
-
-/* Individual stories */
+/**************** Individual stories ***********************/
 
 .story-link {
   color: black;
@@ -80,14 +88,24 @@ img{
   margin: 18px 0;
 }
 
+small.story-hostname {
+  display: inline;
+  font-size: 10px;
+  margin-left: 2px;
+}
+
 .story-link:hover {
   text-decoration: none;
 }
 
 .story-author {
-  margin-left: 2em;
+  display: block;
+  font-size: 0.85rem;
+  color: green;
 }
 
 .story-user {
   display: block;
+  color: orange;
+  font-size: 0.85rem;
 }

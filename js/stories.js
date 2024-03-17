@@ -10,9 +10,7 @@ async function getAndShowStoriesOnStart() {
   putStoriesOnPage();
 }
 
-
-
-//////////////////////////////////////  VERSION 3////////////////////////////
+/* Render the markup for an individual Story instance */
 function generateStoryMarkup(story, showTrashbin) {
   const hostName = story.getHostName(); 
   if (!currentUser) {
@@ -22,8 +20,8 @@ function generateStoryMarkup(story, showTrashbin) {
             <a href="${story.url}" target="a_blank" class="story-link">${story.title}</a>
         </div>
         <small class="story-hostname">(${hostName})</small>
-        <small class="story-author">by ${story.author}</small>
-        <small class="story-user">posted by ${story.username}</small>
+        <div class="story-author">by ${story.author}</div>
+        <div class="story-user">posted by ${story.username}</div>
     </li>
 `);
 
@@ -44,7 +42,7 @@ function generateStoryMarkup(story, showTrashbin) {
               <div class="trashbin-checkbox" style="${trashbinStyle}">
                   <img src="images/trashbin.jpg" alt="Trash Bin" class="trashbin-img"/>
                   <input type="checkbox" class="trashbin-input" id="trashbin-${story.storyId}"/>
-                  <label for="trashbin-${story.storyId}"></label>
+                  <label class="trashbin-input for="trashbin-${story.storyId}"></label>
               </div>
 
               <div class="star-checkbox">
@@ -53,11 +51,10 @@ function generateStoryMarkup(story, showTrashbin) {
               </div>
 
               <a href="${story.url}" target="a_blank" class="story-link">${story.title}</a>
-
-          </div>
-          <small class="story-hostname">(${hostName})</small>
-          <small class="story-author">by ${story.author}</small>
-          <small class="story-user">posted by ${story.username}</small>
+              <small class="story-hostname">(${hostName})</small>         
+          </div>   
+          <div class="story-author">by ${story.author}</div>
+          <div class="story-user">posted by ${story.username}</div>       
       </li>
   `);
 }
@@ -132,10 +129,8 @@ async function submitStory(evt){
 
 $storyAddingForm.on("submit", submitStory);
 
-// /* Identify the selected favorite story, then add or remove it */
+/* Identify the selected favorite story, then add or remove it */
 async function findSelectedStory(evt) {
-  // evt.prefentDefault();
-  // evt.stopPropagation();
   const $targetedStar = $(evt.target);
   const $closestLi = $targetedStar.closest("li");
   const storyId = $closestLi.attr("id"); 
@@ -148,28 +143,19 @@ async function findSelectedStory(evt) {
   } else {
     await currentUser.addFavorite(story);
   }
-
 }
 
 $allStoriesList.on('change', '.star-input', findSelectedStory);
 $allFavoriteStories.on('change', '.star-input', findSelectedStory);
 $allMyStories.on('change', '.star-input', findSelectedStory);
 
-
-
-
-// Find selected trashbin checkbox
+/* Find selected trashbin checkbox */
 async function findStoryToDelete(evt) {
   console.log("I found story to delete!");
 
     const $targetedTrashbin = $(evt.target);
     const $closestLi = $targetedTrashbin.closest("li");
     const storyId = $closestLi.attr("id"); 
-
-    // if (localStorage.getItem(storyId) && $targetedTrashbin.prop("checked")) {
-    //     currentUser.removeStory(storyList.story.find(s => s.storyId === storyId));
-    //     localStorage.removeItem(storyId);
-    // }
   
     // $allMyStories.show();
     await storyList.removeStory(currentUser, storyId);

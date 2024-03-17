@@ -34,7 +34,7 @@ class StoryList {
 
     const stories = response.data.stories.map(story => new Story(story));
 
-    return new StoryList(stories); // New instance of StoryList using the new array of stories
+    return new StoryList(stories); 
   }
 
   // Add story data to API 
@@ -62,7 +62,6 @@ class StoryList {
       data: { token }
     });
     
-    // Rule out stories with different storyId 
     this.stories = this.stories.filter(s => s.storyId !== storyId);
     user.ownStories = user.ownStories.filter(s => s.storyId !== storyId); 
     user.favorites = user.favorites.filter(s => s.storyId !== storyId); 
@@ -83,8 +82,8 @@ class User {
     this.name = name;
     this.createdAt = createdAt;
 
-    this.favorites = favorites.map(s => new Story(s)); // New Story instance for favorites
-    this.ownStories = ownStories.map(s => new Story(s)); // New Story instance for ownStories
+    this.favorites = favorites.map(s => new Story(s)); 
+    this.ownStories = ownStories.map(s => new Story(s));
 
     this.loginToken = token;
   }
